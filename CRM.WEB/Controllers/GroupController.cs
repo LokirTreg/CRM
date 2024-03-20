@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CRM.WEB.Controllers
 {
@@ -18,11 +19,10 @@ namespace CRM.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var students = await dbContext.Students.ToListAsync();
-            return View(students);
+            return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddGroupModelView viewModel)
+        public async Task<IActionResult> Add(AddGroupViewModel viewModel)
         {
             var group = new Models.Entyties.Group
             {
@@ -45,11 +45,27 @@ namespace CRM.WEB.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var group = await dbContext.Groups.FindAsync(id);
+
+            Student st = new Student();
+            List<SelectListItem> listStudents = new List<SelectListItem>();
+            List<SelectListItem> listGroup_Students = new List<SelectListItem>();
+            var sts = await dbContext.Students.ToListAsync();
+            var gr_st = await dbContext.Group_Students.ToListAsync();
+            foreach (var item in sts)
+            {
+                listStudents.Add(new SelectListItem() { Text = item.FIO, Value = item.Id.ToString() });
+            }
+            foreach (var item in gr_st)
+            {
+                listGroup_Students.Add(new SelectListItem() { Text = item., Value = item.Id.ToString() });
+            }
+            ViewBag.ListStudents = listStudents;
             return View(group);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Models.Entyties.Group viewModel)
         {
+
             var group = await dbContext.Groups.FindAsync(viewModel.Id);
             if (group is not null)
             {

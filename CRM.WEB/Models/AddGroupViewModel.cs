@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace CRM.WEB.Models
 {
-    public class AddGroupModelView
+    public class AddGroupViewModel
     {
         public int Number { get; set; }
         public ICollection<Group_Student> Group_Students { get; set; }

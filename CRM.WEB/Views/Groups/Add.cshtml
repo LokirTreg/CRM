@@ -3,35 +3,17 @@
 *@
 @{
 }
-@model CRM.WEB.Models.AddGroupModelView
+@model CRM.WEB.Models.AddGroupViewModel
 <div class="position-relative">
-    <h1>Добавить группу</h1>
+    <h1>Добавить Группу</h1>
 
     <form method="post">
         <div class="mt-3">
-            <label class="form-label">Номер предмета</label>
-            <input type="number" class="form-control" asp-for="Number" />
+            <label class="form-label">Номер группы</label>
+            <input type="text" class="form-control" asp-for="Number" />
         </div>
         <div class="mt-3">
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
-    </form>
-    <form>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Фио</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var student in Model.Group_Students)
-            {
-                <tr>
-                    <td>@student.Student_Id</td>
-                </tr>
-            }
-            </tbody>
-        </table>
     </form>
 </div>
