@@ -4,6 +4,7 @@ using CRM.WEB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.WEB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321182408_Mig")]
+    partial class Mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace CRM.WEB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseId")
+                    b.Property<int>("Course_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int>("Group_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int>("Teacher_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Time")
@@ -64,18 +67,22 @@ namespace CRM.WEB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("СlassroomId")
+                    b.Property<int>("Сlassroom_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("Course_Id")
+                        .IsUnique();
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("Group_Id")
+                        .IsUnique();
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("Teacher_Id")
+                        .IsUnique();
 
-                    b.HasIndex("СlassroomId");
+                    b.HasIndex("Сlassroom_Id")
+                        .IsUnique();
 
                     b.ToTable("Event");
                 });
@@ -163,26 +170,26 @@ namespace CRM.WEB.Migrations
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Event", b =>
                 {
                     b.HasOne("CRM.WEB.Models.Entyties.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
+                        .WithOne("Event")
+                        .HasForeignKey("CRM.WEB.Models.Entyties.Event", "Course_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CRM.WEB.Models.Entyties.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
+                        .WithOne("Event")
+                        .HasForeignKey("CRM.WEB.Models.Entyties.Event", "Group_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CRM.WEB.Models.Entyties.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
+                        .WithOne("Event")
+                        .HasForeignKey("CRM.WEB.Models.Entyties.Event", "Teacher_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CRM.WEB.Models.Entyties.Сlassroom", "Сlassroom")
-                        .WithMany()
-                        .HasForeignKey("СlassroomId")
+                        .WithOne("Event")
+                        .HasForeignKey("CRM.WEB.Models.Entyties.Event", "Сlassroom_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -211,12 +218,30 @@ namespace CRM.WEB.Migrations
 
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Course", b =>
                 {
+                    b.Navigation("Event")
+                        .IsRequired();
+
                     b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Group", b =>
                 {
+                    b.Navigation("Event")
+                        .IsRequired();
+
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("CRM.WEB.Models.Entyties.Teacher", b =>
+                {
+                    b.Navigation("Event")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CRM.WEB.Models.Entyties.Сlassroom", b =>
+                {
+                    b.Navigation("Event")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

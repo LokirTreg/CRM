@@ -50,82 +50,42 @@ namespace CRM.WEB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FIO = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Student", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Teacher",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FIO = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teacher", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Group_Student",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Group_Id = table.Column<int>(type: "int", nullable: false),
-                    Student_Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Group_Student", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Group_Student_Group_Group_Id",
-                        column: x => x.Group_Id,
-                        principalTable: "Group",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Group_Student_Student_Student_Id",
-                        column: x => x.Student_Id,
-                        principalTable: "Student",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Course_Teacher",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Course_Id = table.Column<int>(type: "int", nullable: false),
-                    Teacher_Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Course_Teacher", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Course_Teacher_Course_Course_Id",
-                        column: x => x.Course_Id,
+                        name: "FK_Teacher_Course_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Course",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GroupId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Course_Teacher_Teacher_Teacher_Id",
-                        column: x => x.Teacher_Id,
-                        principalTable: "Teacher",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Student_Group_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Group",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -171,16 +131,6 @@ namespace CRM.WEB.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Course_Teacher_Course_Id",
-                table: "Course_Teacher",
-                column: "Course_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Course_Teacher_Teacher_Id",
-                table: "Course_Teacher",
-                column: "Teacher_Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Event_Сlassroom_Id",
                 table: "Event",
                 column: "Сlassroom_Id",
@@ -205,30 +155,24 @@ namespace CRM.WEB.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Group_Student_Group_Id",
-                table: "Group_Student",
-                column: "Group_Id");
+                name: "IX_Student_GroupId",
+                table: "Student",
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Group_Student_Student_Id",
-                table: "Group_Student",
-                column: "Student_Id");
+                name: "IX_Teacher_CourseId",
+                table: "Teacher",
+                column: "CourseId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Course_Teacher");
-
-            migrationBuilder.DropTable(
                 name: "Event");
 
             migrationBuilder.DropTable(
-                name: "Group_Student");
-
-            migrationBuilder.DropTable(
-                name: "Course");
+                name: "Student");
 
             migrationBuilder.DropTable(
                 name: "Teacher");
@@ -240,7 +184,7 @@ namespace CRM.WEB.Migrations
                 name: "Group");
 
             migrationBuilder.DropTable(
-                name: "Student");
+                name: "Course");
         }
     }
 }

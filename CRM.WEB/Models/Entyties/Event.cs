@@ -13,19 +13,23 @@ namespace CRM.WEB.Models.Entyties
         public string Time { get; set; }
         [Required]
         public string Weekday { get; set; }
+
+
         [Required, ForeignKey(nameof(Course))]
-        public int Course_Id { get; set; }
+        public int CourseId { get; set; }
+        public virtual Course Course { get; set; }
+
 
         [Required, ForeignKey(nameof(Group))]
-        public int Group_Id { get; set; }
+        public int GroupId { get; set; }
+        public virtual Group Group { get; set; }
+
         [Required, ForeignKey(nameof(Teacher))]
-        public int Teacher_Id { get; set; }
+        public int TeacherId { get; set; }
+        public virtual Teacher Teacher { get; set; }
 
         [Required, ForeignKey(nameof(Сlassroom))]
-        public int Сlassroom_Id { get; set; }
-        public virtual Course Course { get; set; }
-        public virtual Group Group { get; set; }
-        public virtual Teacher Teacher { get; set; }
+        public int СlassroomId { get; set; }
         public virtual Сlassroom Сlassroom { get; set; }
     }
 }

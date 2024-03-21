@@ -3,6 +3,7 @@ using CRM.WEB.Models;
 using CRM.WEB.Models.Entyties;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRM.WEB.Controllers
@@ -17,6 +18,23 @@ namespace CRM.WEB.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            var group = await dbContext.Groups.FindAsync(id);
+
+            Student st = new Student();
+            List<SelectListItem> listStudents = new List<SelectListItem>();
+            List<SelectListItem> listGroup_Students = new List<SelectListItem>();
+            var sts = await dbContext.Students.ToListAsync();
+            var gr_st = await dbContext.Group_Students.ToListAsync();
+            foreach (var item in sts)
+            {
+                listStudents.Add(new SelectListItem() { Text = item.FIO, Value = item.Id.ToString() });
+            }
+            foreach (var item in gr_st)
+            {
+                listGroup_Students.Add(new SelectListItem() { Text = item., Value = item.Id.ToString() });
+            }
+            ViewBag.ListStudents = listStudents;
+
             return View();
         }
         [HttpPost]
@@ -24,7 +42,7 @@ namespace CRM.WEB.Controllers
         {
             var student = new Student
             {
-                FIO = viewModel.FIO,
+                Name = viewModel.Name,
                 Email = viewModel.Email
             };
             await dbContext.Students.AddAsync(student);
@@ -51,7 +69,7 @@ namespace CRM.WEB.Controllers
             var student = await dbContext.Students.FindAsync(viewModel.Id);
             if (student is not null)
             {
-                student.FIO = viewModel.FIO;
+                student.Name = viewModel.Name;
                 student.Email = viewModel.Email;
                 await dbContext.SaveChangesAsync();
             }
