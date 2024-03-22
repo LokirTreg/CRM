@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.WEB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240321183034_Mig2")]
-    partial class Mig2
+    [Migration("20240322033857_mig")]
+    partial class mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

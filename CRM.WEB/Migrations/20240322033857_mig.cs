@@ -5,7 +5,7 @@
 namespace CRM.WEB.Migrations
 {
     /// <inheritdoc />
-    public partial class Mig : Migration
+    public partial class mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -96,63 +96,59 @@ namespace CRM.WEB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Weekday = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Course_Id = table.Column<int>(type: "int", nullable: false),
-                    Group_Id = table.Column<int>(type: "int", nullable: false),
-                    Teacher_Id = table.Column<int>(type: "int", nullable: false),
-                    Сlassroom_Id = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
+                    СlassroomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Event_Course_Course_Id",
-                        column: x => x.Course_Id,
+                        name: "FK_Event_Course_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Course",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Event_Group_Group_Id",
-                        column: x => x.Group_Id,
+                        name: "FK_Event_Group_GroupId",
+                        column: x => x.GroupId,
                         principalTable: "Group",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Event_Teacher_Teacher_Id",
-                        column: x => x.Teacher_Id,
+                        name: "FK_Event_Teacher_TeacherId",
+                        column: x => x.TeacherId,
                         principalTable: "Teacher",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Event_Сlassroom_Сlassroom_Id",
-                        column: x => x.Сlassroom_Id,
+                        name: "FK_Event_Сlassroom_СlassroomId",
+                        column: x => x.СlassroomId,
                         principalTable: "Сlassroom",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_Сlassroom_Id",
+                name: "IX_Event_СlassroomId",
                 table: "Event",
-                column: "Сlassroom_Id",
-                unique: true);
+                column: "СlassroomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_Course_Id",
+                name: "IX_Event_CourseId",
                 table: "Event",
-                column: "Course_Id",
-                unique: true);
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_Group_Id",
+                name: "IX_Event_GroupId",
                 table: "Event",
-                column: "Group_Id",
-                unique: true);
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_Teacher_Id",
+                name: "IX_Event_TeacherId",
                 table: "Event",
-                column: "Teacher_Id",
-                unique: true);
+                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Student_GroupId",
