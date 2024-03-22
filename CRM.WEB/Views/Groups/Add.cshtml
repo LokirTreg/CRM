@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CRM.WEB.Models.AddGroupModelView
+<div class="position-relative">
+    <h1>Добавить группу</h1>
+
+    <form method="post">
+        <div class="mt-3">
+            <label class="form-label">Номер предмета</label>
+            <input type="number" class="form-control" asp-for="Number" />
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+    <form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Фио</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var student in Model.Group_Students)
+            {
+                <tr>
+                    <td>@student.Student_Id</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </form>
+</div>
