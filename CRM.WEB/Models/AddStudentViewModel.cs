@@ -6,5 +6,6 @@ namespace CRM.WEB.Models
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public virtual Group GroupId { get; set; }
     }
 }

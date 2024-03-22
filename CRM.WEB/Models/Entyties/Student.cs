@@ -12,5 +12,6 @@ namespace CRM.WEB.Models.Entyties
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
+        public virtual Group GroupId { get; set; }
     }
 }

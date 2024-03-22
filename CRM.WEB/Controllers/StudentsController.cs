@@ -16,24 +16,16 @@ namespace CRM.WEB.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            var group = await dbContext.Groups.FindAsync(id);
-
             Student st = new Student();
-            List<SelectListItem> listStudents = new List<SelectListItem>();
-            List<SelectListItem> listGroup_Students = new List<SelectListItem>();
-            var sts = await dbContext.Students.ToListAsync();
-            var gr_st = await dbContext.Group_Students.ToListAsync();
+            List<SelectListItem> listGroups = new List<SelectListItem>();
+            var sts = await dbContext.Groups.ToListAsync();
             foreach (var item in sts)
             {
-                listStudents.Add(new SelectListItem() { Text = item.FIO, Value = item.Id.ToString() });
+                listGroups.Add(new SelectListItem() { Text = item.Number.ToString(), Value = item.Id.ToString() });
             }
-            foreach (var item in gr_st)
-            {
-                listGroup_Students.Add(new SelectListItem() { Text = item., Value = item.Id.ToString() });
-            }
-            ViewBag.ListStudents = listStudents;
+            ViewBag.listGroups = listGroups;
 
             return View();
         }
