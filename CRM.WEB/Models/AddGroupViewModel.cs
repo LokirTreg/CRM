@@ -6,6 +6,5 @@ namespace CRM.WEB.Models
     public class AddGroupViewModel
     {
         public int Number { get; set; }
-        public ICollection<Group_Student> Group_Students { get; set; }
     }
 }

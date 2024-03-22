@@ -27,7 +27,6 @@ namespace CRM.WEB.Controllers
             var group = new Models.Entyties.Group
             {
                 Number = viewModel.Number,
-                Group_Students = viewModel.Group_Students
             };
             await dbContext.Groups.AddAsync(group);
             await dbContext.SaveChangesAsync();
