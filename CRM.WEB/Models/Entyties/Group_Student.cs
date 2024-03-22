@@ -14,5 +14,6 @@ namespace CRM.WEB.Models.Entyties
         public int Student_Id { get; set; }
         public virtual Group Group_ { get; set; }
         public virtual Student Student_ { get; set; }
+        
     }
 }

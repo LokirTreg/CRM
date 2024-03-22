@@ -55,10 +55,11 @@ namespace CRM.WEB.Controllers
             {
                 listStudents.Add(new SelectListItem() { Text = item.FIO, Value = item.Id.ToString() });
             }
+            /*
             foreach (var item in gr_st)
             {
                 listGroup_Students.Add(new SelectListItem() { Text = item., Value = item.Id.ToString() });
-            }
+            }*/
             ViewBag.ListStudents = listStudents;
             return View(group);
         }
