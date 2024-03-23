@@ -11,6 +11,11 @@
         <tr>
             <th>Id</th>
             <th>Номер</th>
+            <th>
+                <div class="mt-3">
+                    <a type="submit" class="btn btn-success" asp-controller="Groups" asp-action="Add">Добавить</a>
+                </div>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -20,13 +25,13 @@
                 <td>@group.Id</td>
                 <td>@group.Number</td>
                 <td>
+                    @*
                     <a class="btn btn-primary" asp-controller="Groups" asp-action="Edit" asp-route-id="@group.Id">
                         Изменить
-                    </a>
+                </a>*@
+                    <a type="submit" class="btn btn-primary" asp-controller="Groups" asp-action="Edit" asp-route-id="@group.Id">Изменить</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a class="btn btn-success btn-block" asp-controller="Groups" asp-action="Add">Добавить</a>

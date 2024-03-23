@@ -49,10 +49,9 @@ namespace CRM.WEB.Controllers
             List<SelectListItem> listStudents = new List<SelectListItem>();
             List<SelectListItem> listGroup_Students = new List<SelectListItem>();
             var sts = await dbContext.Students.ToListAsync();
-            var gr_st = await dbContext.Group_Students.ToListAsync();
             foreach (var item in sts)
             {
-                listStudents.Add(new SelectListItem() { Text = item.FIO, Value = item.Id.ToString() });
+                listStudents.Add(new SelectListItem() { Text = item.Name, Value = item.Id.ToString() });
             }
             /*
             foreach (var item in gr_st)

@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model List<CRM.WEB.Models.Entyties.Teacher>
+@model IEnumerable<CRM.WEB.Models.Entyties.Teacher>
 <h1>Преподаватели</h1>
 
 <table class="table">
@@ -18,7 +18,7 @@
         {
             <tr>
                 <td>@teacher.Id</td>
-                <td>@teacher.FIO</td>
+                <td>@teacher.Name</td>
                 <td>
                     <a class="btn btn-primary" asp-controller="Teachers" asp-action="Edit" asp-route-id="@teacher.Id">
                         Изменить

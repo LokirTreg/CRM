@@ -3,11 +3,11 @@
 *@
 @{
 }
-@model CRM.WEB.Models.Entyties.Teacher
-<h1>Изменить данные преподователя</h1>
+@model CRM.WEB.Models.Entyties.Course
+<h1>Изменить даннный Группы</h1>
 @if (Model is null)
 {
-    <p>Нет такого преподавателя</p>
+    <p>Нет такого предмета</p>
 }
 else
 {
@@ -17,14 +17,14 @@ else
             <input type="text" class="form-control" asp-for="Id" readonly />
         </div>
         <div class="mt-3">
-            <label class="form-label">ФИО</label>
-            <input type="text" class="form-control" asp-for="Name" />
+            <label class="form-label">Номер</label>
+            <input type="text" class="form-control" asp-for="Title" />
         </div>
         <div class="mt-3">
-            <button type="submit" class="btn">Сохранить</button>
+            <button type="submit" class="btn btn-success">Сохранить</button>
         </div>
         <div class="mt-3">
-            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Teachers">Удалить</button>
+            <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Course">Удалить</button>
         </div>
     </form>
 }

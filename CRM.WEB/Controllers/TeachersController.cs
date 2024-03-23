@@ -4,6 +4,7 @@ using CRM.WEB.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CRM.WEB.Controllers
 {
@@ -17,6 +18,13 @@ namespace CRM.WEB.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            List<SelectListItem> CL = new List<SelectListItem>();
+            var Clist = dbContext.Courses.ToList();
+            foreach (var i in Clist)
+            {
+                CL.Add(new SelectListItem() { Text = i.Title, Value = i.Id.ToString() });
+            }
+            ViewBag.Cl = CL;
             return View();
         }
         [HttpPost]
@@ -24,7 +32,7 @@ namespace CRM.WEB.Controllers
         {
             var teacher = new Teacher
             {
-                FIO = viewModel.FIO,
+                Name = viewModel.Name,
             };
             await dbContext.Teachers.AddAsync(teacher);
             await dbContext.SaveChangesAsync();
@@ -34,7 +42,20 @@ namespace CRM.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var teachers = await dbContext.Teachers.ToListAsync();
+            var students = from st in dbContext.Students
+                           join gr in dbContext.Groups on st.GroupId equals gr.Id
+                           select new StudentDetailView
+                           {
+                               student = st,
+                               gro = gr
+                           };
+            var teachers = from te in dbContext.Teachers
+                           join co in dbContext.Courses on te.CourseId equals co.Id
+                           select new TeacherDetailView
+                           {
+                               teacher=te,
+                               course=co
+                           };
             return View(teachers);
         }
 
@@ -50,7 +71,7 @@ namespace CRM.WEB.Controllers
             var teacher = await dbContext.Teachers.FindAsync(viewModel.Id);
             if (teacher is not null)
             {
-                teacher.FIO = viewModel.FIO;
+                teacher.Name = viewModel.Name;
                 await dbContext.SaveChangesAsync();
             }
             return RedirectToAction("List", "Teachers");

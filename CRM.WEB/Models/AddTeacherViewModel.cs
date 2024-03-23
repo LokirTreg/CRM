@@ -4,6 +4,7 @@ namespace CRM.WEB.Models
 {
     public class AddTeacherViewModel
     {
-        public string FIO { get; set; }
+        public string Name { get; set; }
+        public int CourseId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using CRM.WEB.Models;
 using CRM.WEB.Models.Entyties;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRM.WEB.Controllers
@@ -17,6 +18,13 @@ namespace CRM.WEB.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            List<SelectListItem> GL = new List<SelectListItem>();
+            var Glist = dbContext.Groups.ToList();
+            foreach (var i in Glist)
+            {
+                GL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
+            }
+            ViewBag.Gl = GL;
             return View();
         }
         [HttpPost]
@@ -24,18 +32,24 @@ namespace CRM.WEB.Controllers
         {
             var student = new Student
             {
-                FIO = viewModel.FIO,
-                Email = viewModel.Email
+                Name = viewModel.Name,
+                Email = viewModel.Email,
+                GroupId = viewModel.GroupId
             };
             await dbContext.Students.AddAsync(student);
             await dbContext.SaveChangesAsync();
-            var students = await dbContext.Students.ToListAsync();
-            return View("List", students);
+            return RedirectToAction("List", "Students");
         }
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var students = await dbContext.Students.ToListAsync();
+            var students = from st in dbContext.Students
+                           join gr in dbContext.Groups on st.GroupId equals gr.Id
+                           select new StudentDetailView
+                           {
+                               student = st,
+                               gro = gr
+                           };
             return View(students);
         }
 
@@ -51,7 +65,7 @@ namespace CRM.WEB.Controllers
             var student = await dbContext.Students.FindAsync(viewModel.Id);
             if (student is not null)
             {
-                student.FIO = viewModel.FIO;
+                student.Name = viewModel.Name;
                 student.Email = viewModel.Email;
                 await dbContext.SaveChangesAsync();
             }
@@ -70,74 +84,5 @@ namespace CRM.WEB.Controllers
             }
             return RedirectToAction("List", "Students");
         }
-        /*
-        // GET: StudentsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: StudentsController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: StudentsController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: StudentsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: StudentsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: StudentsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: StudentsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
     }
 }
