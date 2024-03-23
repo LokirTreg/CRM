@@ -10,5 +10,6 @@ namespace CRM.WEB.Models.Entyties
         public int Id { get; set; }
         [Required]
         public int Number { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

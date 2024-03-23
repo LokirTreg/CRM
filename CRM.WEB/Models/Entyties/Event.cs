@@ -23,10 +23,12 @@ namespace CRM.WEB.Models.Entyties
         [Required, ForeignKey(nameof(Group))]
         public int GroupId { get; set; }
         public virtual Group Group { get; set; }
+        /*
 
         [ForeignKey(nameof(Teacher))]
         public int? TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
+        */
 
         [Required, ForeignKey(nameof(Сlassroom))]
         public int СlassroomId { get; set; }
