@@ -7,7 +7,6 @@
         public int Weekday { get; set; }
         public int CourseId { get; set; }
         public int GroupId { get; set; }
-        public int TeacherId { get; set; }
-        public int СlassroomId { get; set; }
+        public int AudiId { get; set; }
     }
 }

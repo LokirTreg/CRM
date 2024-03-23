@@ -11,5 +11,6 @@ namespace CRM.WEB.Models.Entyties
         [Required]
         public int Number { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Event> Event { get; set; }
     }
 }

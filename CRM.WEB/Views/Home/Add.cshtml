@@ -8,17 +8,67 @@
     function SetGroup() {
         $("#GroupId").val($('#drpGroupList option:selected').val())
     }
+    function SetCourse() {
+        $("#CourseId").val($('#drpCourseList option:selected').val())
+    }
+    function SetAudiId() {
+        $("#AudiId").val($('#drpAudiIdList option:selected').val())
+    }
+    function SetTeacher() {
+        $("#TeacherId").val($('#drpTeacherList option:selected').val())
+    }
+    function SetTime() {
+        $("#Time").val($('#drpTimeList option:selected').val())
+    }
+    function SetWeekday() {
+        $("#Weekday").val($('#drpWeekdayList option:selected').val())
+    }
 </script>
-@model CRM.WEB.Models.AddStudentViewModel
+@model CRM.WEB.Models.AddEventViewModel
 @{
     <div class="position-relative">
-        <h1>Добавить студента</h1>
+        <h1>Добавить событие</h1>
 
         <form method="post">
             <div class="mt-3" class="form-group">
+                <label class="control-label">Время</label>
+                <input required type="hidden" asp-for="Time" value="hidden" value="" />
+                <select required id="drpTimeList" asp-for="Time" name="drpTimeList" class="form-control" asp-items="@ViewBag.time" onchange="SetTime()">
+                    <option value=''>--выбрать время--</option>
+                </select>
+            </div>
+            <div class="mt-3" class="form-group">
+                <label class="control-label">День недели</label>
+                <input required type="hidden" asp-for="Weekday" value="hidden" value="" />
+                <select required id="drpWeekdayList" asp-for="Weekday" name="drpWeekdayList" class="form-control" asp-items="@ViewBag.Weekend" onchange="SetWeekday()">
+                    <option value=''>--выбрать дня недели--</option>
+                </select>
+            </div>
+            <div class="mt-3" class="form-group">
+                <label class="control-label">Преподаватель</label>
+                <input required type="hidden" asp-for="TeacherId" value="hidden" value="" />
+                <select required id="drpTeacherList" asp-for="TeacherId" name="drpTeacherList" class="form-control" asp-items="@ViewBag.Tl" onchange="SetTeacher()">
+                    <option value=''>--выбрать преподавателя--</option>
+                </select>
+            </div>
+            <div class="mt-3" class="form-group">
+                <label class="control-label">Аудитория</label>
+                <input required type="hidden" asp-for="AudiId" value="hidden" value="" />
+                <select required id="drpAudiIdList" asp-for="AudiId" name="drAudiIdList" class="form-control" asp-items="@ViewBag.Clasl" onchange="SetAudiId()">
+                    <option value=''>--выбрать аудиторию--</option>
+                </select>
+            </div>
+            <div class="mt-3" class="form-group">
+                <label class="control-label">Предмет</label>
+                <input required type="hidden" asp-for="CourseId" value="hidden" value="" />
+                <select required id="drpCourseList" asp-for="CourseId" name="drpCourseList" class="form-control" asp-items="@ViewBag.Cl" onchange="SetCourse()">
+                    <option value=''>--выбрать предмет--</option>
+                </select>
+            </div>
+            <div class="mt-3" class="form-group">
                 <label class="control-label">Группы</label>
                 <input required type="hidden" asp-for="GroupId" value="hidden" value="" />
-                <select required id="drpGroupList" asp-for="GroupId" name="drpGroupList" class="form-control" asp-items="@ViewBag.GL" onchange="SetGroup()">
+                <select required id="drpGroupList" asp-for="GroupId" name="drpGroupList" class="form-control" asp-items="@ViewBag.Gl" onchange="SetGroup()">
                     <option value=''>--выбрать группу--</option>
                 </select>
             </div>

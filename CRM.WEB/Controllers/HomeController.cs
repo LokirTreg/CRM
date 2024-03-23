@@ -12,18 +12,17 @@ namespace CRM.WEB.Controllers
         private readonly AppDbContext dbContext;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(AppDbContext dbContext)
         {
-            _logger = logger;
             this.dbContext = dbContext;
         }
 
         public IActionResult Index()
-        {/*
+        {
             var events = from ev in dbContext.Events
                            join gr in dbContext.Groups on ev.GroupId equals gr.Id
                            join co in dbContext.Courses on ev.CourseId equals co.Id
-                           join te in dbContext.Teachers on ev.TeacherId equals te.Id
+                           join te in dbContext.Teachers on co.Id equals te.CourseId
                            join cl in dbContext.Ñlassrooms on ev.ÑlassroomId equals cl.Id
                            select new EventDetailView
                            {
@@ -33,11 +32,9 @@ namespace CRM.WEB.Controllers
                                teacher = te,
                                ñlassroom = cl
                            };
-            */
-
             ViewBag.time = new List<string> { "8:20", "9:50", "10:00", "11:35", "12:05", "13:40", "13:50", "15:25",
                 "13:50", "15:25", "17:20", "18:40", "18:45", "20:05", "20:10", "21:30" };
-            return View();
+            return View(events);
         }
 
         [HttpGet]
@@ -52,11 +49,12 @@ namespace CRM.WEB.Controllers
             ViewBag.Gl = GL; 
             List<SelectListItem> CL = new List<SelectListItem>();
             var Clist = dbContext.Courses.ToList();
-            foreach (var i in Glist)
+            foreach (var i in Clist)
             {
-                CL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
+                CL.Add(new SelectListItem() { Text = i.Title, Value = i.Id.ToString() });
             }
             ViewBag.Cl = CL;
+            /*
             List<SelectListItem> TL = new List<SelectListItem>();
             var Tlist = dbContext.Teachers.ToList();
             foreach (var i in Tlist)
@@ -64,13 +62,14 @@ namespace CRM.WEB.Controllers
                 TL.Add(new SelectListItem() { Text = i.Name.ToString(), Value = i.Id.ToString() });
             }
             ViewBag.Tl = TL;
-            List<SelectListItem> ClL = new List<SelectListItem>();
-            var Cllist = dbContext.Ñlassrooms.ToList();
-            foreach (var i in Cllist)
+            */
+            List<SelectListItem> ClasL = new List<SelectListItem>();
+            var Claslist = dbContext.Ñlassrooms.ToList();
+            foreach (var i in Claslist)
             {
-                ClL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
+                ClasL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
             }
-            ViewBag.Cll = ClL;
+            ViewBag.Clasl = ClasL;
             List<string> time = new List<string> { "8:20", "9:50", "10:00", "11:35", "12:05", "13:40", "13:50", "15:25",
                 "13:50", "15:25", "17:20", "18:40", "18:45", "20:05", "20:10", "21:30" };
             List<SelectListItem> Time = new List<SelectListItem>();
@@ -80,10 +79,12 @@ namespace CRM.WEB.Controllers
             }
             ViewBag.time = Time;
             List<string> weekend = new List<string> {"Ïîíåäåëüíèê", "Âòîðíèê", "Ñðåäà", "×åòâåðã", "Ïÿòíèöà", "Ñóááîòà" };
-            for (int i = 0; i < 6; i += 1)
+            List<SelectListItem> Weekend = new List<SelectListItem>();
+            for (int j = 0; j < 6; j += 1)
             {
-                Time.Add(new SelectListItem() { Text = weekend[i], Value = i.ToString() });
+                Weekend.Add(new SelectListItem() { Text = weekend[j], Value = j.ToString() });
             }
+            ViewBag.Weekend = Weekend;
             return View();
         }
         [HttpPost]
@@ -95,12 +96,10 @@ namespace CRM.WEB.Controllers
                 CourseId = viewModel.CourseId,
                 Weekday = viewModel.Weekday,
                 GroupId = viewModel.GroupId,
-                TeacherId = viewModel.TeacherId,
-                ÑlassroomId = viewModel.ÑlassroomId
+                ÑlassroomId = viewModel.AudiId
             };
             await dbContext.Events.AddAsync(@event);
             await dbContext.SaveChangesAsync();
-            var @events = await dbContext.Events.ToListAsync();
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Privacy()

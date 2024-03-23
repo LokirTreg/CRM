@@ -12,7 +12,7 @@ namespace CRM.WEB.Models.Entyties
         public string Name { get; set; }
 
         [ForeignKey(nameof(Course))]
-        public int? CourseId { get; set; }
+        public int CourseId { get; set; }
         public virtual Course Course { get; set; }
     }
 }
