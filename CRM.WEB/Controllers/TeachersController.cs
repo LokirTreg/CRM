@@ -33,22 +33,16 @@ namespace CRM.WEB.Controllers
             var teacher = new Teacher
             {
                 Name = viewModel.Name,
+                CourseId = viewModel.CourseId
             };
             await dbContext.Teachers.AddAsync(teacher);
             await dbContext.SaveChangesAsync();
             var teachers = await dbContext.Teachers.ToListAsync();
-            return View("List", teachers);
+            return RedirectToAction("List", "Teachers");
         }
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var students = from st in dbContext.Students
-                           join gr in dbContext.Groups on st.GroupId equals gr.Id
-                           select new StudentDetailView
-                           {
-                               student = st,
-                               gro = gr
-                           };
             var teachers = from te in dbContext.Teachers
                            join co in dbContext.Courses on te.CourseId equals co.Id
                            select new TeacherDetailView

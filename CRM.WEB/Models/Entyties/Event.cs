@@ -10,9 +10,9 @@ namespace CRM.WEB.Models.Entyties
         [Key, Required]
         public int Id { get; set; }
         [Required]
-        public string Time { get; set; }
+        public int Time { get; set; }
         [Required]
-        public string Weekday { get; set; }
+        public int Weekday { get; set; }
 
 
         [Required, ForeignKey(nameof(Course))]

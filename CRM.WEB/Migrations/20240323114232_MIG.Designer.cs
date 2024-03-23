@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.WEB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240322114244_MIG")]
+    [Migration("20240323114232_MIG")]
     partial class MIG
     {
         /// <inheritdoc />
@@ -59,13 +59,11 @@ namespace CRM.WEB.Migrations
                     b.Property<int?>("TeacherId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Time")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Weekday")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Weekday")
+                        .HasColumnType("int");
 
                     b.Property<int>("СlassroomId")
                         .HasColumnType("int");

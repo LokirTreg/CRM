@@ -3,24 +3,29 @@
 *@
 @{
 }
-@model IEnumerable<CRM.WEB.Models.Entyties.Teacher>
+@model IEnumerable<CRM.WEB.Models.TeacherDetailView>
 <h1>Преподаватели</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Фио</th>
+            <th>ФИО</th>
+            <th>НАзвание предмета</th>
+            <th>
+                <a class="btn btn-success btn-block" asp-controller="Teachers" asp-action="Add">Добавить</a>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var teacher in Model)
         {
             <tr>
-                <td>@teacher.Id</td>
-                <td>@teacher.Name</td>
+                <td>@teacher.teacher.Id</td>
+                <td>@teacher.teacher.Name</td>
+                <td>@teacher.course.Title</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="Teachers" asp-action="Edit" asp-route-id="@teacher.Id">
+                    <a class="btn btn-primary" asp-controller="Teachers" asp-action="Edit" asp-route-id="@teacher.teacher.Id">
                         Изменить
                     </a>
                 </td>
@@ -28,5 +33,3 @@
         }
     </tbody>
 </table>
-
-<a class="btn btn-success btn-block" asp-controller="Teachers" asp-action="Add">Добавить</a>

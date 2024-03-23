@@ -44,21 +44,6 @@ namespace CRM.WEB.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var group = await dbContext.Groups.FindAsync(id);
-
-            Student st = new Student();
-            List<SelectListItem> listStudents = new List<SelectListItem>();
-            List<SelectListItem> listGroup_Students = new List<SelectListItem>();
-            var sts = await dbContext.Students.ToListAsync();
-            foreach (var item in sts)
-            {
-                listStudents.Add(new SelectListItem() { Text = item.Name, Value = item.Id.ToString() });
-            }
-            /*
-            foreach (var item in gr_st)
-            {
-                listGroup_Students.Add(new SelectListItem() { Text = item., Value = item.Id.ToString() });
-            }*/
-            ViewBag.ListStudents = listStudents;
             return View(group);
         }
         [HttpPost]

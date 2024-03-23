@@ -21,10 +21,14 @@
                     <th>@ViewBag.time[i] <br/>@ViewBag.time[i+1]</th>
                     @for (int j = 0; j < 6; j += 1)
                     {
-                            <td>@if (Model.Time == i)
+                            <td>@*if (Model.Time == i/2 && Model.Weekday == j)
                                 {
-                                    
+                                    <p>Добавить</p>
                                 }
+                                else
+                                {
+
+                                }*@
                             </td>
                         }
                 </tr>
