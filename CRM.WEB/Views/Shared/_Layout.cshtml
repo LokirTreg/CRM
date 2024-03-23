@@ -34,20 +34,23 @@
                 </div>*@
                 <div class="collapse navbar-collapse  collapse d-sm-inline-flex justify-content-between" id="navbarNavLightDropdown">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Расписание</a>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Списки</a>
-                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Списки</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li>
-                                    <a class="nav-link text" asp-area="" asp-controller="Students" asp-action="List">Студенты</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Students" asp-action="List">Студенты</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text" asp-area="" asp-controller="Teachers" asp-action="List">Преподаватели</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Teachers" asp-action="List">Преподаватели</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text" asp-area="" asp-controller="Groups" asp-action="List">Группы</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Groups" asp-action="List">Группы</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text" asp-area="" asp-controller="Course" asp-action="List">Предметы</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Course" asp-action="List">Предметы</a>
                                 </li>
                             </ul>
                     </ul>

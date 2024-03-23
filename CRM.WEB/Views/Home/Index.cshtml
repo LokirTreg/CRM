@@ -1,8 +1,35 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model CRM.WEB.Models.AddEventViewModel
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table">
+        <thead>
+            <th></th>
+            <th>Понедельник</th>
+            <th>Вторник</th>
+            <th>Среда</th>
+            <th>Четверг</th>
+            <th>Пятница</th>
+            <th>Суббота</th>
+        </thead>
+        <tbody>
+            @{
+            for (int i=0;i<16;i+=2)
+            {
+                <tr>
+                    <th>@ViewBag.time[i] <br/>@ViewBag.time[i+1]</th>
+                    @for (int j = 0; j < 6; j += 1)
+                    {
+                            <td>@if (Model.Time == i)
+                                {
+                                    
+                                }
+                            </td>
+                        }
+                </tr>
+            }
+            }
+        </tbody>
+    </table>
 </div>
