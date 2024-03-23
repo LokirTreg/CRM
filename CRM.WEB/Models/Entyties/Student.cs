@@ -12,5 +12,9 @@ namespace CRM.WEB.Models.Entyties
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
+        [Required, ForeignKey(nameof(Group))]
+        public int GroupId { get; set; }
+        public virtual Group Group { get; set; }
+        
     }
 }
