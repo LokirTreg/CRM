@@ -14,11 +14,11 @@ else
     <form method="post">
         <div class="mt-3">
             <label class="form-label">Id</label>
-            <input type="text" class="form-control" asp-for="Id" readonly />
+            <input required type="text" class="form-control" asp-for="Id" readonly />
         </div>
         <div class="mt-3">
             <label class="form-label">Номер</label>
-            <input type="text" class="form-control" asp-for="Title" />
+            <input required type="text" class="form-control" asp-for="Title" />
         </div>
         <div class="mt-3">
             <button type="submit" class="btn btn-success">Сохранить</button>

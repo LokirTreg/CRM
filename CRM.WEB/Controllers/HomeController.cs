@@ -54,15 +54,6 @@ namespace CRM.WEB.Controllers
                 CL.Add(new SelectListItem() { Text = i.Title, Value = i.Id.ToString() });
             }
             ViewBag.Cl = CL;
-            /*
-            List<SelectListItem> TL = new List<SelectListItem>();
-            var Tlist = dbContext.Teachers.ToList();
-            foreach (var i in Tlist)
-            {
-                TL.Add(new SelectListItem() { Text = i.Name.ToString(), Value = i.Id.ToString() });
-            }
-            ViewBag.Tl = TL;
-            */
             List<SelectListItem> ClasL = new List<SelectListItem>();
             var Claslist = dbContext.Ñlassrooms.ToList();
             foreach (var i in Claslist)

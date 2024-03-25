@@ -56,6 +56,13 @@ namespace CRM.WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            List<SelectListItem> GL = new List<SelectListItem>();
+            var Glist = dbContext.Groups.ToList();
+            foreach (var i in Glist)
+            {
+                GL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
+            }
+            ViewBag.Gl = GL;
             var student = await dbContext.Students.FindAsync(id);
             return View(student);
         }

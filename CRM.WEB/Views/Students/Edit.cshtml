@@ -3,6 +3,12 @@
 *@
 @{
 }
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function SetGroup() {
+        $("#GroupId").val($('#drpGroupList option:selected').val())
+    }
+</script>
 @model CRM.WEB.Models.Entyties.Student
 <h1>Edit Student</h1>
 @if (Model is null)
@@ -18,14 +24,21 @@ else
         </div>
         <div class="mt-3">
             <label class="form-label">ФИО</label>
-            <input type="text" class="form-control" asp-for="Name" />
+            <input required type="text" class="form-control" asp-for="Name" />
         </div>
         <div class="mt-3">
             <label class="form-label">Почта</label>
-            <input class="form-control" type="email" asp-for="Email" />
+            <input required class="form-control" type="email" asp-for="Email" />
+        </div>
+        <div class="mt-3" class="form-group">
+            <label class="control-label">Группы</label>
+            <input required type="hidden" asp-for="GroupId" value="hidden" value="" />
+            <select required id="drpGroupList" asp-for="GroupId" name="drpGroupList" class="form-control" asp-items="@ViewBag.GL" onchange="SetGroup()">
+                <option value=''>--выбрать группу--</option>
+            </select>
         </div>
         <div class="mt-3">
-            <button type="submit" class="btn">Сохранить</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
         <div class="mt-3">
             <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Students">Удалить</button>
