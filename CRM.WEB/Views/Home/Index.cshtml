@@ -25,13 +25,16 @@
                             <td>
                                 @foreach (var item in Model)
                                 {
-                                    @if (item.eevent.Time == i / 2 && item.eevent.Weekday == j)
+                                    @if (item.eevent.Time == i && item.eevent.Weekday == j)
                                     {
                                         <div class="card bg-secondary">
                                             <div class="text-light" align="left">Предмет: @item.course.Title</div>
                                             <div class="text-light" align="left">Преподаватель: @item.teacher.Name</div>
                                             <div class="text-light" align="left">Аудитория: @item.сlassroom.Number</div>
                                             <div class="text-light" align="left">Группа: @item.gro.Number</div>
+                                            <a class="btn btn-primary" asp-controller="Home" asp-action="Add" asp-route-id="@item.eevent.Id">
+                                                Изменить
+                                            </a>
                                         </div>
                                     }
                                 }

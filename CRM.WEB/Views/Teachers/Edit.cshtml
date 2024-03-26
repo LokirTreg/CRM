@@ -20,13 +20,6 @@ else
             <label class="form-label">ФИО</label>
             <input required type="text" class="form-control" asp-for="Name" />
         </div>
-        <div class="mt-3" class="form-group">
-            <label class="control-label">Предметы</label>
-            <input required type="hidden" asp-for="CourseId" value="hidden" value="" />
-            <select required id="drpCourseList" asp-for="CourseId" name="drpCourseList" class="form-control" asp-items="@ViewBag.Cl" onchange="SetCourse()">
-                <option value=''>--выбрать предмет--</option>
-            </select>
-        </div>
         <div class="mt-3">
             <button type="submit" class="btn btn-primary">Сохранить</button>
             <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Teachers">Удалить</button>

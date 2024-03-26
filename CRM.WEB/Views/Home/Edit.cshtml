@@ -10,6 +10,7 @@
     }
     function SetCourse() {
         $("#CourseId").val($('#drpCourseList option:selected').val())
+        alert($('#drpCourseList option:selected').val())
     }
     function SetAudiId() {
         $("#AudiId").val($('#drpAudiIdList option:selected').val())
@@ -25,14 +26,19 @@
     }
     function SetTeacherId() {
         $("#TeacherId").val($('#drpTeacherIdList option:selected').val())
+        alert($('#drpTeacherIdList option:selected').val())
     }
 </script>
-@model CRM.WEB.Models.AddEventViewModel
+@model CRM.WEB.Models.Entyties.Event
 @{
     <div class="position-relative">
-        <h1>Добавить событие</h1>
+        <h1>Изменить событие</h1>
 
         <form method="post">
+            <div class="mt-3">
+                <label class="form-label">Id</label>
+                <input required type="text" class="form-control" asp-for="Id" readonly />
+            </div>
             <div class="mt-3" class="form-group">
                 <label class="control-label">Время</label>
                 <input required type="hidden" asp-for="Time" value="hidden" value="" />
@@ -49,8 +55,8 @@
             </div>
             <div class="mt-3" class="form-group">
                 <label class="control-label">Аудитория</label>
-                <input required type="hidden" asp-for="AudiId" value="hidden" value="" />
-                <select required id="drpAudiIdList" asp-for="AudiId" name="drAudiIdList" class="form-control" asp-items="@ViewBag.Clasl" onchange="SetAudiId()">
+                <input required type="hidden" asp-for="СlassroomId" value="hidden" value="" />
+                <select required id="drpAudiIdList" asp-for="СlassroomId" name="drAudiIdList" class="form-control" asp-items="@ViewBag.Clasl" onchange="SetAudiId()">
                     <option value=''>--выбрать аудиторию--</option>
                 </select>
             </div>
@@ -76,7 +82,8 @@
                 </select>
             </div>
             <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary" >Сохранить</button>
+                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Home">Удалить</button>
             </div>
         </form>
     </div>

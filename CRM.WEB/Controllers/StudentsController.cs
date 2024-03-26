@@ -63,17 +63,21 @@ namespace CRM.WEB.Controllers
                 GL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
             }
             ViewBag.Gl = GL;
-            var student = await dbContext.Students.FindAsync(id);
+            var student = await dbContext.Students
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
             return View(student);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Student viewModel)
         {
-            var student = await dbContext.Students.FindAsync(viewModel.Id);
+            var student = await dbContext.Students
+                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
             if (student is not null)
             {
                 student.Name = viewModel.Name;
                 student.Email = viewModel.Email;
+                student.GroupId = viewModel.GroupId;
                 await dbContext.SaveChangesAsync();
             }
             return RedirectToAction("List", "Students");

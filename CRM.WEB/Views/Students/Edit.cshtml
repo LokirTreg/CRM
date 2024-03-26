@@ -31,7 +31,7 @@ else
             <input required class="form-control" type="email" asp-for="Email" />
         </div>
         <div class="mt-3" class="form-group">
-            <label class="control-label">Группы</label>
+            <label class="control-label">Группы @Model.GroupId</label>
             <input required type="hidden" asp-for="GroupId" value="hidden" value="" />
             <select required id="drpGroupList" asp-for="GroupId" name="drpGroupList" class="form-control" asp-items="@ViewBag.GL" onchange="SetGroup()">
                 <option value=''>--выбрать группу--</option>

@@ -32,8 +32,7 @@ namespace CRM.WEB.Controllers
         {
             var teacher = new Teacher
             {
-                Name = viewModel.Name,
-                CourseId = viewModel.CourseId
+                Name = viewModel.Name
             };
             await dbContext.Teachers.AddAsync(teacher);
             await dbContext.SaveChangesAsync();
@@ -44,11 +43,9 @@ namespace CRM.WEB.Controllers
         public async Task<IActionResult> List()
         {
             var teachers = from te in dbContext.Teachers
-                           join co in dbContext.Courses on te.CourseId equals co.Id
                            select new TeacherDetailView
                            {
-                               teacher=te,
-                               course=co
+                               teacher=te
                            };
             return View(teachers);
         }

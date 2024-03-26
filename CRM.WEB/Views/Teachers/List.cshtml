@@ -11,7 +11,6 @@
         <tr>
             <th>Id</th>
             <th>ФИО</th>
-            <th>НАзвание предмета</th>
             <th>
                 <a class="btn btn-success btn-block" asp-controller="Teachers" asp-action="Add">Добавить</a>
             </th>
@@ -23,7 +22,6 @@
             <tr>
                 <td>@teacher.teacher.Id</td>
                 <td>@teacher.teacher.Name</td>
-                <td>@teacher.course.Title</td>
                 <td>
                     <a class="btn btn-primary" asp-controller="Teachers" asp-action="Edit" asp-route-id="@teacher.teacher.Id">
                         Изменить
