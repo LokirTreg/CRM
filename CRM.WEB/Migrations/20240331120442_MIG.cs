@@ -11,7 +11,7 @@ namespace CRM.WEB.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Сlassroom",
+                name: "Audi",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -20,7 +20,7 @@ namespace CRM.WEB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Сlassroom", x => x.Id);
+                    table.PrimaryKey("PK_Audi", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,11 +79,17 @@ namespace CRM.WEB.Migrations
                     Weekday = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     GroupId = table.Column<int>(type: "int", nullable: false),
-                    СlassroomId = table.Column<int>(type: "int", nullable: false)
+                    AudiId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Event_Audi_AudiId",
+                        column: x => x.AudiId,
+                        principalTable: "Audi",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Event_Course_CourseId",
                         column: x => x.CourseId,
@@ -94,12 +100,6 @@ namespace CRM.WEB.Migrations
                         name: "FK_Event_Group_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Group",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Event_Сlassroom_СlassroomId",
-                        column: x => x.СlassroomId,
-                        principalTable: "Сlassroom",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -126,9 +126,9 @@ namespace CRM.WEB.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_СlassroomId",
+                name: "IX_Event_AudiId",
                 table: "Event",
-                column: "СlassroomId");
+                column: "AudiId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Event_CourseId",
@@ -164,7 +164,7 @@ namespace CRM.WEB.Migrations
                 name: "Teacher");
 
             migrationBuilder.DropTable(
-                name: "Сlassroom");
+                name: "Audi");
 
             migrationBuilder.DropTable(
                 name: "Group");

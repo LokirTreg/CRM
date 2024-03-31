@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.WEB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240323175501_MIG")]
+    [Migration("20240331120442_MIG")]
     partial class MIG
     {
         /// <inheritdoc />
@@ -23,6 +23,22 @@ namespace CRM.WEB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CRM.WEB.Models.Entyties.Audi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Audi");
+                });
 
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Course", b =>
                 {
@@ -49,6 +65,9 @@ namespace CRM.WEB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AudiId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
@@ -61,16 +80,13 @@ namespace CRM.WEB.Migrations
                     b.Property<int>("Weekday")
                         .HasColumnType("int");
 
-                    b.Property<int>("СlassroomId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AudiId");
 
                     b.HasIndex("CourseId");
 
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("СlassroomId");
 
                     b.ToTable("Event");
                 });
@@ -139,24 +155,14 @@ namespace CRM.WEB.Migrations
                     b.ToTable("Teacher");
                 });
 
-            modelBuilder.Entity("CRM.WEB.Models.Entyties.Сlassroom", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Сlassroom");
-                });
-
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Event", b =>
                 {
+                    b.HasOne("CRM.WEB.Models.Entyties.Audi", "Audi")
+                        .WithMany("Events")
+                        .HasForeignKey("AudiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CRM.WEB.Models.Entyties.Course", "Course")
                         .WithMany("Events")
                         .HasForeignKey("CourseId")
@@ -169,17 +175,11 @@ namespace CRM.WEB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CRM.WEB.Models.Entyties.Сlassroom", "Сlassroom")
-                        .WithMany("Events")
-                        .HasForeignKey("СlassroomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Audi");
 
                     b.Navigation("Course");
 
                     b.Navigation("Group");
-
-                    b.Navigation("Сlassroom");
                 });
 
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Student", b =>
@@ -204,6 +204,11 @@ namespace CRM.WEB.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("CRM.WEB.Models.Entyties.Audi", b =>
+                {
+                    b.Navigation("Events");
+                });
+
             modelBuilder.Entity("CRM.WEB.Models.Entyties.Course", b =>
                 {
                     b.Navigation("Events");
@@ -216,11 +221,6 @@ namespace CRM.WEB.Migrations
                     b.Navigation("Events");
 
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("CRM.WEB.Models.Entyties.Сlassroom", b =>
-                {
-                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

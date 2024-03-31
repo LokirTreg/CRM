@@ -13,7 +13,7 @@ namespace CRM.WEB.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<Сlassroom> Сlassrooms { get; set; }
+        public DbSet<Audi> Audi { get; set; }
         public DbSet<Event> Events { get; set; }
     }
 }

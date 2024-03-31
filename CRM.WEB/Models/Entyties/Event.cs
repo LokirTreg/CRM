@@ -30,8 +30,8 @@ namespace CRM.WEB.Models.Entyties
         public virtual Teacher Teacher { get; set; }
         */
 
-        [Required, ForeignKey(nameof(Сlassroom))]
-        public int СlassroomId { get; set; }
-        public virtual Сlassroom Сlassroom { get; set; }
+        [Required, ForeignKey(nameof(Audi))]
+        public int AudiId { get; set; }
+        public virtual Audi Audi { get; set; }
     }
 }

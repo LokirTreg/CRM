@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CRM.WEB.Models.Entyties
 {
-    [Table("Сlassroom")]
-    public class Сlassroom
+    [Table("Audi")]
+    public class Audi
     {
         [Key, Required]
         public int Id { get; set; }
