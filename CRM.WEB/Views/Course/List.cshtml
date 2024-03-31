@@ -45,7 +45,7 @@ KfkfwYDsLklIwQp6LFnl8zNdLGxu9YAA1QvwlNks4PhcEIQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZq
         $("#myInput").on("keyup", function () {
             debugger
             var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
+            $("#myTable tbody tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
