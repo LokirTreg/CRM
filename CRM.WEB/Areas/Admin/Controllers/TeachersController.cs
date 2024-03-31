@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CRM.WEB.Controllers
 {
@@ -16,27 +17,42 @@ namespace CRM.WEB.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add(int id)
         {
-            List<SelectListItem> CL = new List<SelectListItem>();
-            var Clist = dbContext.Courses.ToList();
-            foreach (var i in Clist)
+            Teacher teacher = new Teacher();
+            if (id == 0)
             {
-                CL.Add(new SelectListItem() { Text = i.Title, Value = i.Id.ToString() });
+                return View(teacher);
             }
-            ViewBag.Cl = CL;
-            return View();
+            else
+            {
+                var teacherid = await dbContext.Teachers.FindAsync(id);
+                return View(teacherid);
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddTeacherViewModel viewModel)
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Add([Bind("Id, Name")] AddTeacherViewModel viewModel)
         {
-            var teacher = new Teacher
+            if (ModelState.IsValid)
             {
-                Name = viewModel.Name
-            };
-            await dbContext.Teachers.AddAsync(teacher);
-            await dbContext.SaveChangesAsync();
-            var teachers = await dbContext.Teachers.ToListAsync();
+                if (viewModel.Id == 0)
+                {
+                    var teacher = new Teacher
+                    {
+                        Name = viewModel.Name
+                    };
+                    await dbContext.Teachers.AddAsync(teacher);
+                    await dbContext.SaveChangesAsync();
+                }
+                if (viewModel.Id > 0)
+                {
+                    var teacher = await dbContext.Teachers.FindAsync(viewModel.Id);
+                    teacher.Name = viewModel.Name;
+                    dbContext.Update(teacher);
+                    await dbContext.SaveChangesAsync();
+                }
+            }
             return RedirectToAction("List", "Teachers");
         }
         [HttpGet]
@@ -49,39 +65,14 @@ namespace CRM.WEB.Controllers
                            };
             return View(teachers);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            List<SelectListItem> CL = new List<SelectListItem>();
-            var Clist = dbContext.Courses.ToList();
-            foreach (var i in Clist)
-            {
-                CL.Add(new SelectListItem() { Text = i.Title, Value = i.Id.ToString() });
-            }
-            ViewBag.Cl = CL;
-            var teacher = await dbContext.Teachers.FindAsync(id);
-            return View(teacher);
-        }
         [HttpPost]
-        public async Task<IActionResult> Edit(Teacher viewModel)
+        public async Task<IActionResult> Delete(int id)
         {
-            var teacher = await dbContext.Teachers.FindAsync(viewModel.Id);
-            if (teacher is not null)
+            if (id > 0)
             {
-                teacher.Name = viewModel.Name;
-                await dbContext.SaveChangesAsync();
-            }
-            return RedirectToAction("List", "Teachers");
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(Teacher viewModel)
-        {
-            var teacher = await dbContext.Teachers
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
-            if (teacher is not null)
-            {
+                var teacher = await dbContext.Teachers
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Id == id);
                 dbContext.Teachers.Remove(teacher);
                 await dbContext.SaveChangesAsync();
             }

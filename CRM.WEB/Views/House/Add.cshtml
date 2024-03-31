@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Layout = "_LayoutAdmin";
 }
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -14,9 +15,6 @@
     function SetAudiId() {
         $("#AudiId").val($('#drpAudiIdList option:selected').val())
     }
-    function SetTeacher() {
-        $("#TeacherId").val($('#drpTeacherList option:selected').val())
-    }
     function SetTime() {
         $("#Time").val($('#drpTimeList option:selected').val())
     }
@@ -27,7 +25,7 @@
         $("#TeacherId").val($('#drpTeacherIdList option:selected').val())
     }
 </script>
-@model CRM.WEB.Models.AddEventViewModel
+@model CRM.WEB.Models.Entyties.Event
 @{
     <div class="position-relative">
         <h1>Добавить событие</h1>
@@ -81,3 +79,14 @@
         </form>
     </div>
 }
+
+<script>
+    $(document).ready(function () {
+        $("#GroupId").val($('#drpGroupList option:selected').val())
+        $("#CourseId").val($('#drpCourseList option:selected').val())
+        $("#AudiId").val($('#drpAudiIdList option:selected').val())
+        $("#TeacherId").val($('#drpTeacherList option:selected').val())
+        $("#Time").val($('#drpTimeList option:selected').val())
+        $("#Weekday").val($('#drpWeekdayList option:selected').val())
+    });
+</script>

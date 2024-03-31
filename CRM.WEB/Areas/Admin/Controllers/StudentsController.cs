@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Text.RegularExpressions;
 
 namespace CRM.WEB.Controllers
 {
@@ -16,7 +18,7 @@ namespace CRM.WEB.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add(int id)
         {
             List<SelectListItem> GL = new List<SelectListItem>();
             var Glist = dbContext.Groups.ToList();
@@ -25,19 +27,43 @@ namespace CRM.WEB.Controllers
                 GL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
             }
             ViewBag.Gl = GL;
-            return View();
+            Student student = new Student();
+            if (id == 0)
+            {
+                return View(student);
+            }
+            else
+            {
+                var studentid = await dbContext.Students.FindAsync(id);
+                return View(studentid);
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddStudentViewModel viewModel)
+        public async Task<IActionResult> Add([Bind("Id, Name, Email, GroupId")] AddStudentViewModel viewModel)
         {
-            var student = new Student
+            if (ModelState.IsValid)
             {
-                Name = viewModel.Name,
-                Email = viewModel.Email,
-                GroupId = viewModel.GroupId
-            };
-            await dbContext.Students.AddAsync(student);
-            await dbContext.SaveChangesAsync();
+                if (viewModel.Id == 0)
+                {
+                    var student = new Student
+                    {
+                        Name = viewModel.Name,
+                        Email = viewModel.Email,
+                        GroupId = viewModel.GroupId
+                    };
+                    await dbContext.Students.AddAsync(student);
+                    await dbContext.SaveChangesAsync();
+                }
+                if (viewModel.Id > 0)
+                {
+                    var student = await dbContext.Students.FindAsync(viewModel.Id);
+                    student.Name = viewModel.Name;
+                    student.Email = viewModel.Email;
+                    student.GroupId = viewModel.GroupId;
+                    dbContext.Update(student);
+                    await dbContext.SaveChangesAsync();
+                }
+            }
             return RedirectToAction("List", "Students");
         }
         [HttpGet]
@@ -52,44 +78,14 @@ namespace CRM.WEB.Controllers
                            };
             return View(students);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            List<SelectListItem> GL = new List<SelectListItem>();
-            var Glist = dbContext.Groups.ToList();
-            foreach (var i in Glist)
-            {
-                GL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
-            }
-            ViewBag.Gl = GL;
-            var student = await dbContext.Students
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
-            return View(student);
-        }
         [HttpPost]
-        public async Task<IActionResult> Edit(Student viewModel)
+        public async Task<IActionResult> Delete(int id)
         {
-            var student = await dbContext.Students
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
-            if (student is not null)
+            if (id > 0)
             {
-                student.Name = viewModel.Name;
-                student.Email = viewModel.Email;
-                student.GroupId = viewModel.GroupId;
-                await dbContext.SaveChangesAsync();
-            }
-            return RedirectToAction("List", "Students");
-        }
-        [HttpPost]
-        public async Task<IActionResult> Delete(Student viewModel)
-        {
-            var student = await dbContext.Students
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
-            if (student is not null)
-            {
+                var student = await dbContext.Students
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(x => x.Id == id);
                 dbContext.Students.Remove(student);
                 await dbContext.SaveChangesAsync();
             }

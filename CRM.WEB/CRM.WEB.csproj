@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
@@ -68,23 +69,11 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Views\House\Edit.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="Views\House\Index.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Views\House\Privacy.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="Views\Students\Add.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Students\Edit.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -93,10 +82,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="Views\Teachers\Add.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Teachers\Edit.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -129,14 +114,10 @@
     <_ContentIncludedByDefault Remove="Views\Groups\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Groups\List.cshtml" />
     <_ContentIncludedByDefault Remove="Views\House\Add.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\House\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\House\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\House\Privacy.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Students\Add.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Students\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Students\List.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Teachers\Add.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Teachers\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Teachers\List.cshtml" />
   </ItemGroup>
 
@@ -177,23 +158,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\House\Edit.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <UpToDateCheckInput Remove="Views\House\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\House\Privacy.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <UpToDateCheckInput Remove="Views\Students\Add.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Students\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -202,10 +171,6 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Teachers\Add.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Teachers\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

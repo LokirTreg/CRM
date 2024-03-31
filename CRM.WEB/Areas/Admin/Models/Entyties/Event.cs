@@ -23,7 +23,7 @@ namespace CRM.WEB.Models.Entyties
         public int? TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
         [Required, ForeignKey(nameof(Сlassroom))]
-        public int СlassroomId { get; set; }
+        public int AudiId { get; set; }
         public virtual Сlassroom Сlassroom { get; set; }
     }
 }
