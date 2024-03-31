@@ -2,33 +2,56 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Layout = "_LayoutAdmin";
 }
-@model List<CRM.WEB.Models.Entyties.Student>
+@model IEnumerable<CRM.WEB.Models.StudentDetailView>
 <h1>Студенты</h1>
-
-<table class="table">
-    <thead>
+<input id="myInput" type="text" placeholder="Поиск..." />
+<table id="myTable" class="table">
+    <thead class="header">
         <tr>
             <th>Id</th>
             <th>Фио</th>
             <th>Почта</th>
+            <th>Номер группы</th>
+            <th><a class="btn btn-success btn-block" asp-controller="Students" asp-action="Add">Добавить</a></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var student in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@student.Id</td>
-                <td>@student.FIO</td>
-                <td>@student.Email</td>
+                <td>@item.student.Id</td>
+                <td>@item.student.Name</td>
+                <td>@item.student.Email</td>
+                <td>@item.gro.Number</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">
-                        Изменить
-                    </a>
+                    <form asp-action="Delete" asp-controller="Students" asp-route-id="@item.student.Id">
+                        <div class="btn-group btn-group-sm">
+                            <a class="btn btn-warning" asp-controller="Students" asp-action="Add" asp-route-id="@item.student.Id">Изменить</a>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a class="btn btn-success btn-block" asp-controller="Students" asp-action="Add">Добавить</a>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css " integrity="sha512-
+KfkfwYDsLklIwQp6LFnl8zNdLGxu9YAA1QvwlNks4PhcEIQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+<script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js "></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger
+        $("#myInput").on("keyup", function () {
+            debugger
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

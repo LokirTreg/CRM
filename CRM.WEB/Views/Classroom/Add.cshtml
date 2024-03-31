@@ -4,14 +4,14 @@
 @{
     Layout = "_LayoutAdmin";
 }
-@model CRM.WEB.Models.Entyties.Group
+@model CRM.WEB.Models.Entyties.Audi
 <div class="position-relative">
-    <h1>Данные Группы</h1>
+    <h1>Данные Аудитории</h1>
 
     <form method="post">
         <div class="mt-3">
-            <label class="form-label">Номер группы</label>
-            <input required type="number" class="form-control" asp-for="Number" />
+            <label class="form-label">Номер Аудитории</label>
+            <input  required type="number" class="form-control" asp-for="Number" />
         </div>
         <div class="mt-3">
             <button type="submit" class="btn btn-primary">Сохранить</button>

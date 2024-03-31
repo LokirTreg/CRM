@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CRM.WEB.User</title>
+    <title>@ViewData["Title"] - CRM.WEB.Admin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CRM.WEB.styles.css" asp-append-version="true" />
@@ -12,50 +13,62 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CRM.WEB</a>
+                <a class="navbar-brand" asp-area="Admin" asp-controller="House" asp-action="Index">CRM.WEB.Admin</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @*
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Выпадающий список
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Действие</a></li>
+                <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                </ul>
+                </li>
+                </ul>
+                </div>*@
                 <div class="collapse navbar-collapse  collapse d-sm-inline-flex justify-content-between" id="navbarNavLightDropdown">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Schedule">Расписание</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="House" asp-action="Index">Расписание</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Списки</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li>
-                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="StudentList">Студенты</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="Admin" asp-controller="Students" asp-action="List">Студенты</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="TeacherList">Преподаватели</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="Admin" asp-controller="Teachers" asp-action="List">Преподаватели</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="GroupList">Группы</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="Admin" asp-controller="Groups" asp-action="List">Группы</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="CourseList">Предметы</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="Admin" asp-controller="Course" asp-action="List">Предметы</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Home" asp-action="ClassromList">Аудитории</a>
+                                    <a class="nav-link text-dark dropdown-item" asp-area="Admin" asp-controller="Classroom" asp-action="List">Аудитории</a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-                <a class="nav-link text-dark" asp-area="Admin" asp-controller="House" asp-action="Index">К Админу</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">К Пользователю</a>
             </div>
         </nav>
     </header>
     <div class="container-xxl">
-        <main role="main" class="pb-3">
-            @RenderBody()
+        <main role ="main" class="pb-3" >
+                @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
