@@ -23,7 +23,7 @@ namespace CRM.WEB.Controllers
             var events = from ev in dbContext.Events
                            join gr in dbContext.Groups on ev.GroupId equals gr.Id
                            join co in dbContext.Courses on ev.CourseId equals co.Id
-                           join cl in dbContext.Ñlassrooms on ev.AudiId equals cl.Id
+                           join cl in dbContext.Audi on ev.AudiId equals cl.Id
                            join te in dbContext.Teachers on ev.TeacherId equals te.Id
                            select new EventDetailView
                            {
@@ -31,7 +31,7 @@ namespace CRM.WEB.Controllers
                                gro = gr,
                                course = co,
                                teacher = te,
-                               ñlassroom = cl
+                               audi = cl
                            };
             ViewBag.time = new List<string> { "8:20", "9:50", "10:00", "11:35", "12:05", "13:40", "13:50", "15:25",
                 "13:50", "15:25", "17:20", "18:40", "18:45", "20:05", "20:10", "21:30" };
@@ -56,7 +56,7 @@ namespace CRM.WEB.Controllers
             }
             ViewBag.Cl = CL;
             List<SelectListItem> ClasL = new List<SelectListItem>();
-            var Claslist = dbContext.Ñlassrooms.ToList();
+            var Claslist = dbContext.Audi.ToList();
             foreach (var i in Claslist)
             {
                 ClasL.Add(new SelectListItem() { Text = i.Number.ToString(), Value = i.Id.ToString() });
@@ -84,6 +84,9 @@ namespace CRM.WEB.Controllers
             {
                 Weekend.Add(new SelectListItem() { Text = weekend[j], Value = j.ToString() });
             }
+            var eevent1 = await dbContext.Events
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == 5);
             ViewBag.Weekend = Weekend;
             Event eevent = new Event();
             if (id == 0)
@@ -92,12 +95,12 @@ namespace CRM.WEB.Controllers
             }
             else
             {
-                var eeventid = dbContext.Events.Find(id);
+                var eeventid =  dbContext.Events.Find(id);
                 return View(eeventid);
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Add(Event viewModel)
+        public async Task<IActionResult> Add([Bind("Id, Time, CourseId, GroupId, Weekday, TeacherId, AudiId")] AddEventViewModel viewModel)
         {
             if (ModelState.IsValid)
             {

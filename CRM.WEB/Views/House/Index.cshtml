@@ -5,16 +5,18 @@
 @model IEnumerable<EventDetailView>
 @if (Model is not null)
 {
-    <div class="text-center">
-    <table class="table">
-        <thead>
-            <th><a class="btn btn-success btn-block" asp-area="Admin" asp-controller="House" asp-action="Add">Добавить</a></th>
-            <th>Понедельник</th>
-            <th>Вторник</th>
-            <th>Среда</th>
-            <th>Четверг</th>
-            <th>Пятница</th>
-            <th>Суббота</th>
+    <input id="myInput" type="text" placeholder="Поиск..." />
+    <table id="myTable" class="table">
+        <thead class="header">
+            <tr>
+                <th><a class="btn btn-success btn-block" asp-area="Admin" asp-controller="House" asp-action="Add">Добавить</a></th>
+                <th>Понедельник</th>
+                <th>Вторник</th>
+                <th>Среда</th>
+                <th>Четверг</th>
+                <th>Пятница</th>
+                <th>Суббота</th>
+            </tr>
         </thead>
         <tbody>
                 @for (int i=0;i<16;i+=2)
@@ -29,13 +31,13 @@
                                     @if (item.eevent.Time == i && item.eevent.Weekday == j)
                                     {
                                         <div class="card bg-secondary">
+                                            <form asp-area="Admin" asp-action="Delete" asp-controller="House" asp-route-id="@item.eevent.Id">
                                             <div class="text-light" align="left">Предмет: @item.course.Title</div>
                                             <div class="text-light" align="left">Преподаватель: @item.teacher.Name</div>
-                                            <div class="text-light" align="left">Аудитория: @item.сlassroom.Number</div>
+                                            <div class="text-light" align="left">Аудитория: @item.audi.Number</div>
                                             <div class="text-light" align="left">Группа: @item.gro.Number</div>
-                                            <form asp-area="Admin" asp-action="Delete" asp-controller="House" asp-route-id="@item.eevent.Id">
-                                                <div class="btn-group btn-group-sm btn-block">
-                                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="House" asp-action="Add" asp-route-id="@item.teacher.Id">Изменить</a>
+                                                <div class="btn-group w-100">
+                                                    <a class="btn btn-warning" asp-area="Admin" asp-controller="House" asp-action="Add" asp-route-id="@item.eevent.Id">Изменить</a>
                                                     <button type="submit" class="btn btn-danger">Удалить</button>
                                                 </div>
                                             </form>
@@ -48,7 +50,24 @@
                 }
         </tbody>
     </table>
-</div>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css " integrity="sha512-
+KfkfwYDsLklIwQp6LFnl8zNdLGxu9YAA1QvwlNks4PhcEIQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js "></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            debugger
+            $("#myInput").on("keyup", function () {
+                debugger
+                var value = $(this).val().toLowerCase();
+                $("#myTable td").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 }
 else
 {

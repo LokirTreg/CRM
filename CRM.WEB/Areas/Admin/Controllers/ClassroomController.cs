@@ -16,55 +16,77 @@ namespace CRM.WEB.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(int id)
         {
-            return View();
+            Audi audi = new Audi();
+            if (id == 0)
+            {
+                return View(audi);
+            }
+            else
+            {
+                var audiid = await dbContext.Audi.FindAsync(id);
+                return View(audiid);
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddСlassroomViewModel viewModel)
+        public async Task<IActionResult> Add([Bind("Id, Number")] AddAudiViewModel viewModel)
         {
-            var сlassroom = new Models.Entyties.Сlassroom
+            if (ModelState.IsValid)
             {
-                Number = viewModel.Number,
-            };
-            await dbContext.Сlassrooms.AddAsync(сlassroom);
-            await dbContext.SaveChangesAsync();
+                if (viewModel.Id == 0)
+                {
+                    var audi = new Audi
+                    {
+                        Number = viewModel.Number
+                    };
+                    await dbContext.Audi.AddAsync(audi);
+                    await dbContext.SaveChangesAsync();
+                }
+                if (viewModel.Id > 0)
+                {
+                    var audi = await dbContext.Audi.FindAsync(viewModel.Id);
+                    audi.Number = viewModel.Number;
+                    dbContext.Update(audi);
+                    await dbContext.SaveChangesAsync();
+                }
+            }
             return RedirectToAction("List", "Classroom");
         }
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var сlassrooms = await dbContext.Сlassrooms.ToListAsync();
-            return View(сlassrooms);
+            var Audi = await dbContext.Audi.ToListAsync();
+            return View(Audi);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var сlassroom = await dbContext.Сlassrooms.FindAsync(id);
-            return View(сlassroom);
+            var Audi = await dbContext.Audi.FindAsync(id);
+            return View(Audi);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Models.Entyties.Сlassroom viewModel)
+        public async Task<IActionResult> Edit(Models.Entyties.Audi viewModel)
         {
 
-            var сlassroom = await dbContext.Сlassrooms.FindAsync(viewModel.Id);
-            if (сlassroom is not null)
+            var Audi = await dbContext.Audi.FindAsync(viewModel.Id);
+            if (Audi is not null)
             {
-                сlassroom.Number = viewModel.Number;
+                Audi.Number = viewModel.Number;
                 await dbContext.SaveChangesAsync();
             }
             return RedirectToAction("List", "Classroom");
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(Models.Entyties.Сlassroom viewModel)
+        public async Task<IActionResult> Delete(Models.Entyties.Audi viewModel)
         {
-            var сlassroom = await dbContext.Сlassrooms
+            var Audi = await dbContext.Audi
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
-            if (сlassroom is not null)
+            if (Audi is not null)
             {
-                dbContext.Сlassrooms.Remove(сlassroom);
+                dbContext.Audi.Remove(Audi);
                 await dbContext.SaveChangesAsync();
             }
             return RedirectToAction("List", "Classroom");

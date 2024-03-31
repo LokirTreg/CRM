@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<CRM.WEB.Models.TeacherDetailView>
+<h1>Преподаватели</h1>
+
+<input id="myInput" type="text" placeholder="Поиск..." />
+<table id="myTable" class="table">
+    <thead class="header">
+        <tr>
+            <th>ФИО</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var teacher in Model)
+        {
+            <tr>
+                <td>@teacher.teacher.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css " integrity="sha512-
+KfkfwYDsLklIwQp6LFnl8zNdLGxu9YAA1QvwlNks4PhcEIQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+<script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js "></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger
+        $("#myInput").on("keyup", function () {
+            debugger
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

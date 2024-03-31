@@ -7,10 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\**" />
     <Compile Remove="A\**" />
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Areas\Admin\Views\**" />
     <Content Remove="A\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\**" />
     <EmbeddedResource Remove="A\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Areas\Admin\Views\**" />
     <None Remove="A\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,16 +32,10 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Update="Views\Classroom\Add.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Classroom\Edit.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -45,19 +47,11 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Views\Course\Edit.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="Views\Course\List.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="Views\Groups\Add.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Views\Groups\Edit.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -105,13 +99,10 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Classroom\Add.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Classroom\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Classroom\List.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Course\Add.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Course\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Course\List.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Groups\Add.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Groups\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Groups\List.cshtml" />
     <_ContentIncludedByDefault Remove="Views\House\Add.cshtml" />
     <_ContentIncludedByDefault Remove="Views\House\Index.cshtml" />
@@ -119,10 +110,6 @@
     <_ContentIncludedByDefault Remove="Views\Students\List.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Teachers\Add.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Teachers\List.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Classroom\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -134,19 +121,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Course\Edit.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <UpToDateCheckInput Remove="Views\Course\List.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Groups\Add.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Groups\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

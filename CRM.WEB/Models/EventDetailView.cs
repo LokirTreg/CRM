@@ -8,6 +8,6 @@ namespace CRM.WEB.Models
         public Group gro { get; set; }
         public Course course { get; set; }
         public Teacher teacher { get; set; }
-        public Сlassroom сlassroom { get; set; }
+        public Audi audi { get; set; }
     }
 }

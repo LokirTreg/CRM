@@ -17,19 +17,41 @@ namespace CRM.WEB.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(int id)
         {
-            return View();
+            Course course = new Course();
+            if (id == 0)
+            {
+                return View(course);
+            }
+            else
+            {
+                var courseid = await dbContext.Courses.FindAsync(id);
+                return View(courseid);
+            }
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Add([Bind("Id, Title")] AddCourseViewModel viewModel)
         {
-            var course = new Models.Entyties.Course
+            if (ModelState.IsValid)
             {
-                Title = viewModel.Title,
-            };
-            await dbContext.Courses.AddAsync(course);
-            await dbContext.SaveChangesAsync();
+                if (viewModel.Id == 0)
+                {
+                    var course = new Course
+                    {
+                        Title = viewModel.Title
+                    };
+                    await dbContext.Courses.AddAsync(course);
+                    await dbContext.SaveChangesAsync();
+                }
+                if (viewModel.Id > 0)
+                {
+                    var course = await dbContext.Courses.FindAsync(viewModel.Id);
+                    course.Title = viewModel.Title;
+                    dbContext.Update(course);
+                    await dbContext.SaveChangesAsync();
+                }
+            }
             return RedirectToAction("List", "Course");
         }
         [HttpGet]
@@ -37,34 +59,6 @@ namespace CRM.WEB.Controllers
         {
             var courses = await dbContext.Courses.ToListAsync();
             return View(courses);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var course = await dbContext.Courses.FindAsync(id);
-            /*
-            List<SelectListItem> listTeachers = new List<SelectListItem>();
-            var sts = await dbContext.Teachers.ToListAsync();
-            foreach (var item in sts)
-            {
-                listTeachers.Add(new SelectListItem() { Text = item.Name, Value = item.Id.ToString() });
-            }
-            ViewBag.ListTeachers = listTeachers;
-            */
-            return View(course);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(Models.Entyties.Course viewModel)
-        {
-
-            var course = await dbContext.Courses.FindAsync(viewModel.Id);
-            if (course is not null)
-            {
-                course.Title = viewModel.Title;
-                await dbContext.SaveChangesAsync();
-            }
-            return RedirectToAction("List", "Course");
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Models.Entyties.Course viewModel)

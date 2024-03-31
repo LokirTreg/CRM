@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EventDetailView>
+<input id="myInput" type="text" placeholder="Поиск..." class="table-filter" data-table="myTable" />
+<table id="myTable" class="table table-bordered">
+    <tr>
+        <th></th>
+        <th>Понедельник</th>
+        <th>Вторник</th>
+        <th>Среда</th>
+        <th>Четверг</th>
+        <th>Пятница</th>
+        <th>Суббота</th>
+    </tr>
+    <tbody>
+        @for (int i = 0; i < 16; i += 2)
+        {
+            <tr >
+                <th>@ViewBag.time[i] <br />@ViewBag.time[i + 1]</th>
+                @for (int j = 0; j < 6; j += 1)
+                {
+                    <th>
+                        @foreach (var item in Model)
+                        {
+                            @if (item.eevent.Time == i && item.eevent.Weekday == j)
+                            {
+                                <main class="card bg-secondary">
+                                    <div class="text-light" align="left">Предмет: @item.course.Title</div>
+                                    <div class="text-light" align="left">Преподаватель: @item.teacher.Name</div>
+                                    <div class="text-light" align="left">Аудитория: @item.audi.Number</div>
+                                    <div class="text-light" align="left">Группа: @item.gro.Number</div>
+                                </main>
+                            }
+                        }
+                    </th>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css " integrity="sha512-
+KfkfwYDsLklIwQp6LFnl8zNdLGxu9YAA1QvwlNks4PhcEIQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+<script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js "></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger
+        $("#myInput").on("keyup", function () {
+    debugger
+        var value = $(this).val().toLowerCase();
+        $("#myTable tbody th main").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    });
+</script>
